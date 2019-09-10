@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
+    <h1>TFT-アイテムビルダー</h1>
+    <p id="tips"></p>
     <!-- <div id="champ">
         <div class="cost1">
             <p>cost1</p>
@@ -31,18 +33,21 @@
     </div>
 
     <div id="itemComp">
-        <p>合成アイテム（クリックすることで候補から外すことができます）</p>
+        <p id='filter'>フィルター▽</p>
+        <div id="itemComp_img" class="hidden"></div>
     </div>
 
     <div id='have'>
         <p>所持アイテム</p>
         <div id='have_item'></div>
-        <button name="compo">検索</button>
+        <button name="compo">合成する</button>
     </div>
 
     <div id="result">
         <p>合成パターン</p>
-        <div id="result_item"></div>
+        <div id="result_item">
+            <p style="color: red"">素材アイテムをクリックしてね！</p>
+        </div>
     </div>
 
     <script src="js/main.js" type="module"></script>

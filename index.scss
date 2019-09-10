@@ -1,4 +1,24 @@
 body{
     background: skyblue;
     margin: 0 100px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+// トグル用
+.hidden{
+    display: none;
+}
+.NG{
+    opacity: 0.3;
+}
+
+
+//
+#itemComp{
+    #filter{
+        display: inline-block; //クリック範囲 行 -> 文字
+    }
+    #itemComp_img{
+        width: 800px;
+    }
 }

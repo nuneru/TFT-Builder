@@ -24,22 +24,34 @@ async function elementItemImg(rowData) {
         item.addEventListener('click', () => {
             const copy = item.cloneNode();
             div.appendChild(copy);
-
         });
     });
 }
 
+
+
 const NG = [];
 function compoItemImg(rowData) {
-    let items = rowData.map( value => value[0] ),
-        imgBoxCompo = document.querySelector(`#itemComp`),
-        compoItem = items.slice(9); //合成後アイテム
-    createItemImg(compoItem, imgBoxCompo);
-    const itemImg = document.querySelectorAll(`#itemComp img`);
+    // フィルターの表示・非表示
+    const filter = document.querySelector('#filter'),
+          wrraper = document.querySelector(`#itemComp_img`);
+    filter.addEventListener('click', () => {
+        wrraper.classList.toggle('hidden');
+    })
+    const items = rowData.map( value => value[0] ),
+          compoItem = items.slice(9); //合成後アイテム
+    createItemImg(compoItem, wrraper);
+
+    // NGリスト追加・削除
+    const itemImg = document.querySelectorAll(`#itemComp_img img`);
     itemImg.forEach( item => {
         item.addEventListener('click', () => {
-            NG.push(item.alt);
-            item.style.opacity = 0.5;
+            item.classList.toggle('NG');
+            if(item.classList.contains('NG')){
+                NG.push(item.alt);
+            } else {
+                NG.splice(NG.indexOf(item.alt), 1);
+            }
         })
     })
 }
@@ -78,13 +90,27 @@ btn.addEventListener('click', () => {
             });
     });
 
+    // 次元の調整
+    const flatCompo = composition.map( value => value.flat()),
+          notDupli　= [...flatCompo];
+    
+    // 重複削除
+    for (let i = 0; i < notDupli.length; i++) {
+        for (let j = 0; j < notDupli.length; j++) {
+            if (i === j) continue;
+            const newArray = [...notDupli[i], ...notDupli[j]],
+                       set = new Set(newArray),
+                       result = Array.from(set);
+                 if (result.length <= notDupli[i].length) {
+                    notDupli.splice(j, 1);
+                     j -= 1;
+                 }
+        }
+    }
+
     // 合成アイテム表示
-    const flatCompo = composition.map( value => value.flat());
-
-    let count = 1;
-    console.log(flatCompo);
-
-    flatCompo.forEach( value => {  
+    let count = 0;
+    notDupli.forEach( value => {  
         const bool = [];
         for(let i = 0; i < NG.length; i++){
             bool.push(value.indexOf( NG[i]));
@@ -97,12 +123,22 @@ btn.addEventListener('click', () => {
 
         const wrraper = document.createElement('div'),
               number = document.createElement('span');
+        count += 1;
+        wrraper.style.display = 'inline-block';
         number.innerText = `候補${count}`;
         wrraper.appendChild(number);
         createItemImg(value, wrraper);
         resultBox.appendChild(wrraper);
-        count += 1;
     });
+
+    if (items.length === 1) {
+        resultBox.innerHTML = '素材アイテムを２つ選択してね！';
+    } else if( notDupli.length === 0) {
+        resultBox.innerHTML = '素材アイテムをクリックしてね！';
+        return ;
+    } else if(count === 0) {
+        resultBox.innerHTML = '候補なし！ NGが多すぎるかも！';
+    }
 })
 
 function searchPattern(array = [], result = [], block = [], counter = 0) {
@@ -123,14 +159,14 @@ function searchPattern(array = [], result = [], block = [], counter = 0) {
         }
     } else {
         for (let j = 0; j < array.length; j++) {
-            const last = array[j],
+            const rest = array[j],
                   copy = array.slice(),
                   del1 = copy.splice(j,1);
             if (copy.length > 0){
                 searchPattern(copy, result, block, counter);
             } 
             for (let k = counter; k < result.length; k++) {
-                result[counter].push(last);
+                result[counter].push(rest);
                 counter += 1;
             }
         }
@@ -138,6 +174,6 @@ function searchPattern(array = [], result = [], block = [], counter = 0) {
     block.pop();
 }
 
-
-// https://github.com/vovotamu/TFT-Builder.git
+// 所持アイテムの削除
+// CSS、レイアウト
 
