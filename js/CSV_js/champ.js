@@ -1,19 +1,24 @@
-export function champData(rowData) {
-    for(let i = 0; i < rowData.length - 1; i++) {
-        let champName = rowData[i][0],    //[row][column]
-            EngName = rowData[i][1],
-            cost = rowData[i][2],
-            org1 = rowData[i][3],
-            org2 = rowData[i][4],
-            class1 = rowData[i][5],
-            class2 = rowData[i][6];
-        createChampImg(EngName, cost);
-    }
-}
-function createChampImg(EngName, cost) {
-    let url = `http://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/${EngName}.png`,
-        champImg = document.createElement('img'),
-        imgBox = document.querySelector(`#champ .cost${cost}`);
-    champImg.src = url;
-    imgBox.appendChild(champImg);
+import { champRowData as champData} from './getCSV.js';
+
+export function createChampImg(champ, rowData = champData) {
+    const champName = rowData.map( value => value[0] ),
+          EngName = rowData.map( value => value[1] ),
+          cost = rowData.map( value => value[2] ),
+          ori1 = rowData.map( value => value[3] ),
+          ori2 = rowData.map( value => value[4] ),
+          class1 = rowData.map( value => value[5] ),
+          class2 = rowData.map( value => value[6] );
+    
+    for(let i = 1; i < champ.length; i++){ 
+        const index = champName.indexOf(champ[i]),
+              url = `http://ddragon.leagueoflegends.com/cdn/9.18.1/img/champion/${EngName[index]}.png`,
+              template = `<div class="champ">
+                            <img 
+                            src="${url}" 
+                            alt="${champName[index]}" 
+                            class="champImg">
+                          </div>`;
+        const a = document.querySelector(`.champ-pool__cost${cost[index]}`);
+        a.insertAdjacentHTML('beforeend', template);
+    };
 }

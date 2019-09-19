@@ -1,6 +1,7 @@
 export let itemRowData;
 export let champRowData;
 
+// http://ddragon.leagueoflegends.com/cdn/9.18.1/data/ja_JP/item.json
 
 export async function getItemCSV() {
     return new Promise((resolve) => {
@@ -13,7 +14,7 @@ export async function getItemCSV() {
     });
 }
 function itemCSVtoArray(CSVData) {
-    let ArrayData = CSVData.split("\n");
+    const ArrayData = CSVData.split("\n");
     itemRowData = ArrayData.map( value => value.split(',') );
 }
 
@@ -29,6 +30,6 @@ export async function getChampCSV() {
     });
 }
 function champCSVtoArray(CSVData) {
-    let ArrayData = CSVData.split("\n");
+    const ArrayData = CSVData.split("\n");
     champRowData = ArrayData.map( value => value.split(',') );
 }

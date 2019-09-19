@@ -5,50 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel='stylesheet' href='https://unpkg.com/ress/dist/ress.min.css'>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <h1>TFT-アイテムビルダー</h1>
-    <p id="tips"></p>
-    <!-- <div id="champ">
-        <div class="cost1">
-            <p>cost1</p>
-        </div>
-        <div class="cost2">
-            <p>cost2</p>
-        </div>
-        <div class="cost3">
-            <p>cost3</p>
-        </div>
-        <div class="cost4">
-            <p>cost4</p>
-        </div>
-        <div class="cost5">
-            <p>cost5</p>
-        </div>
-    </div> -->
 
-    <div id="itemEle">
-        <p>素材アイテム</p>
-    </div>
-
-    <div id="itemComp">
-        <p id='filter'>フィルター▽</p>
-        <div id="itemComp_img" class="hidden"></div>
-    </div>
-
-    <div id='have'>
-        <p>所持アイテム</p>
-        <div id='have_item'></div>
-        <button name="compo">合成する</button>
-    </div>
-
-    <div id="result">
-        <p>合成パターン</p>
-        <div id="result_item">
-            <p style="color: red"">素材アイテムをクリックしてね！</p>
+    <section class="wrapper">
+        <div class="wrapper__champ mr">
+            <div class="champ-pool">
+                <h4>チャンピオンプール(パッチ9.18.1)</h4>
+                <div class="champ-pool__list">
+                    <div class="champ-pool__cost1"><p>コスト1(各種39枚)</p></div>
+                    <div class="champ-pool__cost2"><p>コスト2(各種26枚)</p></div>
+                    <div class="champ-pool__cost3"><p>コスト3(各種18枚)</p></div>
+                    <div class="champ-pool__cost4"><p>コスト4(各種13枚)</p></div>
+                    <div class="champ-pool__cost5"><p>コスト5(各種10枚)</p></div>
+                </div>
+            </div>
         </div>
-    </div>
+        
+        <div class="wrapper__item">
+            <div class="item-builder">
+                <div class="base-item mb" >
+                    <h3>素材アイテム</h3>
+                    <div class="base-item__list"></div>
+                    <button class="reset-btn">リセット</button>
+                </div>
+                
+                
+        
+                <div class="combined-item mb">
+                    <p class='combined-item__filter mb'>フィルター▽</p>
+                    <div class="combined-item__list hidden"></div>
+                </div>
+            
+                <div class="have-item mb">
+                    <h3>所持アイテム</h3>
+                    <div class='have-item__list'></div>
+                    
+                </div>
+        
+                <div class="result mb">
+                    <h3>合成パターン</h3>
+                    <div class="result__list">
+                        <p style="color: red"">素材アイテムをクリックしてね！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="illustName"></div>
 
     <script src="js/main.js" type="module"></script>
 </body>

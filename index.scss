@@ -1,8 +1,218 @@
+$btn-top: 70px;
+$btn-left: 570px;
+
 body{
-    background: skyblue;
-    margin: 0 100px;
+    margin: 0px 50px;
+    padding: 0px;
+    height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
+    color: white;
 }
+
+h1{
+    text-align: center;
+}
+
+.wrapper{
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+
+.champ-pool{
+    &__list{
+        & > div{
+            width: 50px * 5;
+        }
+    }
+}
+
+.champ{
+    display: inline-block;
+    .champImg{
+        height: 50px;
+    }
+}
+
+@media screen and (max-width:960px){
+    body{
+        margin: 0px 10px 10px;
+    }
+    .wrapper{
+        -webkit-flex-direction: column;
+        flex-direction: column-reverse;
+    }
+    .champ-pool__list{
+        display: flex;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        flex-flow: wrap;
+        & > div{
+            margin-right: 20px;
+        }
+    }
+}
+
+    
+.item-builder{
+    position: relative;
+    .reset-btn{
+        position: absolute;
+        top: $btn-top;
+        left: $btn-left;
+        background:red;
+        border-radius: 3px;
+        outline: none;
+        box-shadow: 2px 2px rgba(37, 10, 10, 0.26);
+        &:active{
+            box-shadow: 0px 0px;
+            transform: translateY(2px);
+        }
+    }
+}
+@media screen and (max-width:960px){
+    .item-builder{
+        position: static;
+        .reset-btn{
+            position: static;
+            top: 0;
+            left: 0;
+        }
+    }
+}
+.base-item{
+    &__list{
+        display: -webkit-flex;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+}
+
+.combined-item{
+    &__filter{
+        display: inline-block;
+    }
+    &__list{
+        display: -webkit-flex;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        max-width: 800px;
+        
+    }
+}
+
+.item{
+    position: relative;
+    &__img:hover + &__detail--base {
+        display: -webkit-flex;
+        display: flex;
+    }
+    &__img:hover + &__detail--combined {
+        display: -webkit-flex;
+        display: flex;
+    }
+    
+    %__detail{
+        display: none;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        position: absolute;
+        background: black;
+        text-align: center;
+        font-size: 13px;
+        border-radius: 20px;
+        z-index: 1;
+        width: 140px;
+        top: -45px;
+        transform: translateX(-28px); // detail:width/2 - img:width/2
+        padding: 2px 4px;
+        p{
+            color: white;
+        }
+        p:first-child{
+            color: red;
+        }
+    }
+    &__detail--base{
+        @extend %__detail;
+    }
+    &__detail--combined{
+        @extend %__detail;
+        width: 310px !important;
+        height: 120px !important;
+        transform: translateY(-72%) !important;
+        justify-content: center;
+        > div {
+            display: -webkit-flex;
+            display: flex;
+            -webkit-flex-direction: row;
+            flex-direction: row;
+            justify-content: center;
+            span{
+                align-self: center;
+            }
+            .item__img{
+                img{
+                    width: 45px;
+                    height: 45px;
+                }
+            }
+        }
+    }
+}
+
+.have-item{
+    &__btn {
+        outline: none;
+        padding: 2px;
+        background: rgb(18, 150, 211);
+        box-shadow: 2px 2px 2px;
+        &:active{
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px;
+        }
+    }
+}
+
+.result{
+    &__list{
+        display: -webkit-flex;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        > .item{
+            margin-right: 40px;
+            .item{
+                display: inline-block;
+            }
+        }
+    }
+}
+
+.itemImg{
+    margin: 2px;
+    border: solid 1px red;
+    border-radius: 10px;
+}
+
+.illustName{
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+}
+
+
+
+.mb{
+    margin-bottom: 10px;
+}
+.mr{
+    margin-right: 40px;
+}
+
 
 // トグル用
 .hidden{
@@ -10,15 +220,4 @@ body{
 }
 .NG{
     opacity: 0.3;
-}
-
-
-//
-#itemComp{
-    #filter{
-        display: inline-block; //クリック範囲 行 -> 文字
-    }
-    #itemComp_img{
-        width: 800px;
-    }
 }
