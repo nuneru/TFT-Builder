@@ -21,6 +21,8 @@ h1{
 }
 
 .champ-pool{
+    position: sticky;
+    top: 10px;
     &__list{
         & > div{
             width: 50px * 5;

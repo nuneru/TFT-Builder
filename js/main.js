@@ -1,36 +1,31 @@
 import { getItemCSV, getChampCSV, itemRowData, champRowData } from "./CSV_js/getCSV.js";
 import { createItemImg } from "./CSV_js/item.js";
 import { createChampImg } from "./CSV_js/champ.js";
+import { bgiP, bgiS} from "./bgi.js";
 
 itemRender();
 
 async function itemRender() {
     await getItemCSV();
     await getChampCSV();
-    bgi();
+    if(window.innerHeight < window.innerWidth) {
+        bgiP();
+    } else {
+        bgiS(); 
+    }
     champImg(champRowData);
     elementItemImg(itemRowData);
     compoItemImg(itemRowData);
 }
 
-// 背景画像の設定
-function bgi() { 
-    const div = document.querySelector('body'),
-          random1 = Math.round( Math.random()*itemRowData.length ),
-          random2 = Math.round( Math.random()*10 ),
-          url = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champRowData[random1][1]}_${random2}.jpg`;
-    fetch(url)
-        .then(res => {
-            if(res.ok){
-                div.style.background = `url(${url}) no-repeat `;
-                div.style.backgroundSize = "cover";
-                const illustName = document.querySelector('.illustName');
-                illustName.innerText = champRowData[random1][1] + "_" + random2;
-            } else {
-                bgi();
-            }
-         });
+window.onresize = function() { //いる？
+    if(window.innerHeight < window.innerWidth) {
+        bgiP();
+    } else {
+        bgiS(); 
+    }
 }
+
 
 async function champImg(rowData) {
     const champ = rowData.map( value => value[0] );
